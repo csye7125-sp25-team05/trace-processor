@@ -1,0 +1,47 @@
+{
+    "branches": ["main"],
+    "repositoryUrl": "https://github.com/csye7125-sp25-team05/trace-processor.git",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            {"path": "./"},
+            {"path": "./CHANGELOG.md"}
+          ]
+        }
+      ],
+      "@semantic-release/github"
+    ],
+    "release": {
+      "verifyConditions": {
+        "path": ["@semantic-release/changelog", "@semantic-release/github", "@semantic-release/git"]
+      },
+      "analyzeCommits": [
+        "@semantic-release/commit-analyzer"
+      ],
+      "generateNotes": [
+        "@semantic-release/release-notes-generator",
+        {
+          "preset": "angular",
+          "writerOpts": {
+            "commitsSort": ["header"]
+          }
+        }
+      ],
+      "prepare": [
+        "@semantic-release/git",
+        {
+          "path": "@semantic-release/changelog",
+          "changelogFile": "CHANGELOG.md"
+        }
+      ],
+      "publish": "@semantic-release/github",
+      "success": "@semantic-release/github",
+      "fail": "@semantic-release/github"
+    }
+  }
+  
