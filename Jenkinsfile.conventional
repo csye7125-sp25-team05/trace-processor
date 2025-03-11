@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Get PR commit message') {
+            steps {
+                script {
+                    // Checkout the repository
+                    checkout scm
+
+                    // Get the commit message
+                    def commitMessage = sh(script: "git log -1 --pretty=%B", returnStdout: true).trim()
+
+                    // Store the commit message in a variable
+                    env.COMMIT_MESSAGE = commitMessage
+
+                    echo "Commit message: ${env.COMMIT_MESSAGE}"
+
+                    // Check if the commit message adheres to the conventional commits format, including breaking changes
+                    def conventionalCommitPattern = /^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\(.+\))?(!)?: .+/
+                    def breakingChangePattern = /BREAKING CHANGE:/
+
+                    if (!commitMessage.matches(conventionalCommitPattern)) {
+                        error("Commit message does not adhere to the conventional commits format")
+                    }
+
+                    // Check for breaking changes
+                    if (commitMessage.matches(conventionalCommitPattern) && commitMessage.contains('!') || commitMessage.contains(breakingChangePattern)) {
+                        echo "Commit message indicates a breaking change"
+                    }
+                }
+            }
+        }
+    }
+}
