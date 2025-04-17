@@ -29,13 +29,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY pdf-processor.py .
 
-# Set environment variables (these will be overridden by Kubernetes)
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    KAFKA_BOOTSTRAP_SERVERS="kafka-headless.kafka.svc.cluster.local:9092" \
-    GCS_BUCKET_NAME="your-pdf-bucket" \
-    PINECONE_API_KEY="your-api-key" \
-    GEMINI_API_KEY="your-api-key"
+
 
 # Run the processor
 CMD ["python", "pdf_processor.py"]
