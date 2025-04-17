@@ -27,7 +27,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
-COPY pdf_processor.py .
+COPY pdf-processor.py .
 
 # Set environment variables (these will be overridden by Kubernetes)
 ENV PYTHONUNBUFFERED=1 \
