@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/csye7125-sp25-team05/trace-processor/compare/v1.1.0...v1.2.0) (2025-04-17)
+
+
+### Features
+
+* Update Dockerfile ([4dfdc7f](https://github.com/csye7125-sp25-team05/trace-processor/commit/4dfdc7fb33d50f470074273bf8f72fd37b4155bc))
+
 # [1.1.0](https://github.com/csye7125-sp25-team05/trace-processor/compare/v1.0.0...v1.1.0) (2025-04-17)
 
 
