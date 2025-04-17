@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        registry = "mayu007/cyse7125-sp25-05.rocks"
+        registry = "mayu007/trace-processor"
         DOCKER_ID = 'mayu007'
         imageName = "go-app"
     }
