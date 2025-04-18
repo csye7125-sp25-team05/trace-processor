@@ -92,7 +92,7 @@ class PDFProcessor:
                     metric="cosine",
                     spec=ServerlessSpec(
                         cloud="gcp",
-                        region="us-east-1"  # Free tier is in GCP us-east1
+                        region="us-east-1"  # Free tier is in GCP us-east-1
                     )
                 )
             
