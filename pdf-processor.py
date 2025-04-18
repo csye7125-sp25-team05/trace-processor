@@ -33,7 +33,7 @@ logger = logging.getLogger("pdf-processor")
 class PDFProcessor:
     """PDF Processor for RAG system that uses Kafka, Gemini, and Pinecone."""
     
-    def _init_(self):
+    def __init__(self):
         """Initialize the PDF processor with all necessary clients and configurations."""
         # Initialize GCS client
         self.storage_client = storage.Client()
@@ -58,7 +58,7 @@ class PDFProcessor:
         # Initialize Kafka
         self.kafka_bootstrap_servers = os.environ.get(
             "KAFKA_BOOTSTRAP_SERVERS", 
-            "kafka-headless.kafka.svc.cluster.local:9092"
+            "kafka-controller-headless.kafka.svc.cluster.local:9092"
         )
         self.consumer = self._initialize_kafka_consumer()
         self.producer = self._initialize_kafka_producer()
@@ -80,8 +80,8 @@ class PDFProcessor:
                     dimension=768,  # Dimension for Gemini embeddings
                     metric="cosine",
                     spec=ServerlessSpec(
-                        cloud="aws",
-                        region="us-east-1"  # Free tier is in AWS us-east-1
+                        cloud="gcp",
+                        region="us-east1"  # Free tier is in GCP us-east1
                     )
                 )
             
@@ -197,7 +197,7 @@ class PDFProcessor:
         
         return all_embeddings
     
-    def process_pdf(self, pdf_path: str, pdf_id: str) -> int:
+    def process_pdf(self, pdf_path: str, pdf_id: str):
         """Process a PDF file, generate embeddings, and store in Pinecone.
         
         Args:
