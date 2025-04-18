@@ -16,8 +16,7 @@ from google.cloud import storage
 import google.generativeai as genai
 
 # Pinecone imports
-import pinecone
-from pinecone import ServerlessSpec
+from pinecone import Pinecone, ServerlessSpec
 
 # PDF processing imports
 from langchain.document_loaders import PyPDFLoader
@@ -51,11 +50,17 @@ class PDFProcessor:
         genai.configure(api_key=gemini_api_key)
         self.embedding_model = "models/embedding-001"  # Latest Gemini embedding model
         
-        # Initialize Pinecone
+        # # Initialize Pinecone
+        # pinecone_api_key = os.environ.get("PINECONE_API_KEY")
+        # if not pinecone_api_key:
+        #     raise ValueError("PINECONE_API_KEY environment variable not set")
+        # pinecone.init(api_key=pinecone_api_key)
+
+        # Initialize Pinecone v3 client
         pinecone_api_key = os.environ.get("PINECONE_API_KEY")
         if not pinecone_api_key:
             raise ValueError("PINECONE_API_KEY environment variable not set")
-        pinecone.init(api_key=pinecone_api_key)
+        self.pc = Pinecone(api_key=pinecone_api_key)
         
         # Initialize Kafka
         self.kafka_bootstrap_servers = os.environ.get(
@@ -75,10 +80,13 @@ class PDFProcessor:
     def _initialize_pinecone_index(self):
         """Initialize Pinecone index, creating it if it doesn't exist."""
         try:
-            if self.index_name not in pinecone.list_indexes():
+            # Check if index exists in Pinecone v3
+            index_list = [index.name for index in self.pc.list_indexes()]
+            
+            if self.index_name not in index_list:
                 logger.info(f"Creating new Pinecone index: {self.index_name}")
-                # Create a serverless index with free tier settings
-                pinecone.create_index(
+                # Create a serverless index with free tier settings for GCP
+                self.pc.create_index(
                     name=self.index_name,
                     dimension=768,  # Dimension for Gemini embeddings
                     metric="cosine",
@@ -88,12 +96,13 @@ class PDFProcessor:
                     )
                 )
             
-            index = pinecone.Index(self.index_name)
+            index = self.pc.Index(self.index_name)
             logger.info(f"Connected to Pinecone index: {self.index_name}")
             return index
         except Exception as e:
             logger.error(f"Failed to initialize Pinecone index: {str(e)}")
             raise
+    
     
     def _initialize_kafka_consumer(self):
         """Initialize and configure the Kafka consumer."""
@@ -243,7 +252,12 @@ class PDFProcessor:
                 "source": pdf_id,
                 "page": chunk.metadata.get("page", 0)
             }
-            vectors_to_upsert.append((vector_id, embedding, metadata))
+            # vectors_to_upsert.append((vector_id, embedding, metadata))
+            vectors_to_upsert.append({
+                "id": vector_id,
+                "values": embedding,
+                "metadata": metadata
+            })
         
         # Batch upsert to Pinecone (smaller batches to avoid rate limits on free tier)
         batch_size = 50  # Reduced batch size for free tier
