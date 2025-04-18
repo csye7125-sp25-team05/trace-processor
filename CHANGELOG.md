@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/csye7125-sp25-team05/trace-processor/compare/v1.5.0...v1.5.1) (2025-04-18)
+
+
+### Bug Fixes
+
+* Update pdf-processor.py for Pinecone V3 ([dfbbdc6](https://github.com/csye7125-sp25-team05/trace-processor/commit/dfbbdc6a604dcf9c62682f55bcc9bd30b0c453c2))
+
 # [1.5.0](https://github.com/csye7125-sp25-team05/trace-processor/compare/v1.4.1...v1.5.0) (2025-04-18)
 
 
