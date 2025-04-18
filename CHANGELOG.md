@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/csye7125-sp25-team05/trace-processor/compare/v1.5.1...v1.5.2) (2025-04-18)
+
+
+### Bug Fixes
+
+* Update pdf-processor.py region changed to us-east-1 ([a10ad6e](https://github.com/csye7125-sp25-team05/trace-processor/commit/a10ad6eb27f425c2fd5fcc1539e8272895124565))
+
 ## [1.5.1](https://github.com/csye7125-sp25-team05/trace-processor/compare/v1.5.0...v1.5.1) (2025-04-18)
 
 
