@@ -348,7 +348,7 @@ class PDFProcessor:
             self.consumer.commit()
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     try:
         processor = PDFProcessor()
         processor.run()
