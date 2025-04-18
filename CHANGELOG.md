@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/csye7125-sp25-team05/trace-processor/compare/v1.4.0...v1.4.1) (2025-04-18)
+
+
+### Bug Fixes
+
+* Resolving Error ([b8ac8d6](https://github.com/csye7125-sp25-team05/trace-processor/commit/b8ac8d68265c0d8acb7405df75785e91594ea74b))
+
 # [1.4.0](https://github.com/csye7125-sp25-team05/trace-processor/compare/v1.3.0...v1.4.0) (2025-04-17)
 
 
