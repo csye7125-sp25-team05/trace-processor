@@ -1,3 +1,11 @@
+# [1.5.0](https://github.com/csye7125-sp25-team05/trace-processor/compare/v1.4.1...v1.5.0) (2025-04-18)
+
+
+### Features
+
+* Aws to GCP and syntax fix ([cc38a24](https://github.com/csye7125-sp25-team05/trace-processor/commit/cc38a2409fe6082ff23fc8ae2664ac9681a15bfa))
+* Changing the init function to add workload identity ([d410f09](https://github.com/csye7125-sp25-team05/trace-processor/commit/d410f0925e956ea915f5e61708d72c2a5b290a86))
+
 ## [1.4.1](https://github.com/csye7125-sp25-team05/trace-processor/compare/v1.4.0...v1.4.1) (2025-04-18)
 
 
